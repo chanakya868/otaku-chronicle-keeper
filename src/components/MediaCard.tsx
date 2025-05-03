@@ -1,7 +1,7 @@
 
 import { MediaItem } from "@/types";
 import StatusBadge from "./StatusBadge";
-import { Star, BookOpen, BookmarkPlus, BookmarkCheck, Pencil, Trash2 } from "lucide-react";
+import { Star, BookmarkPlus, BookmarkCheck, Pencil, Trash2 } from "lucide-react";
 import { useMediaStore } from "@/store/mediaStore";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -50,6 +50,16 @@ export default function MediaCard({ item }: MediaCardProps) {
         <div className="absolute top-2 right-2 z-10">
           <StatusBadge status={item.status} />
         </div>
+        <div className="absolute top-2 left-2 z-10">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={handleDelete}
+            className="bg-black/50 hover:bg-red-600/70 text-white rounded-full w-8 h-8 flex items-center justify-center"
+          >
+            <Trash2 size={16} />
+          </Button>
+        </div>
         <div className="h-[200px] overflow-hidden relative">
           <img
             src={item.imageUrl || placeholderImage}
@@ -96,25 +106,12 @@ export default function MediaCard({ item }: MediaCardProps) {
       </CardContent>
       
       <CardFooter className="flex justify-between p-4 pt-0 gap-2">
-        <Button variant="outline" size="sm" onClick={handleToggleWatchlist}>
-          {item.inWatchlist ? (
-            <>
-              <BookmarkCheck size={16} className="mr-1" /> Watchlist
-            </>
-          ) : (
-            <>
-              <BookmarkPlus size={16} className="mr-1" /> Add
-            </>
-          )}
+        <Button variant="outline" size="icon" onClick={handleToggleWatchlist} title={item.inWatchlist ? "Remove from watchlist" : "Add to watchlist"}>
+          {item.inWatchlist ? <BookmarkCheck size={16} /> : <BookmarkPlus size={16} />}
         </Button>
-        <div className="flex gap-1">
-          <Button variant="ghost" size="icon" onClick={handleEdit}>
-            <Pencil size={16} />
-          </Button>
-          <Button variant="ghost" size="icon" onClick={handleDelete}>
-            <Trash2 size={16} />
-          </Button>
-        </div>
+        <Button variant="ghost" size="icon" onClick={handleEdit} title="Edit">
+          <Pencil size={16} />
+        </Button>
       </CardFooter>
     </Card>
   );
