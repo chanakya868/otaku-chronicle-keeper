@@ -1,7 +1,7 @@
 
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { BookOpen, ListFilter, PlusCircle, Search, Star } from "lucide-react";
+import { BookOpen, ListFilter, Star } from "lucide-react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -52,30 +52,6 @@ export default function Layout({ children }: LayoutProps) {
             >
               <Star size={20} />
               <span className="hidden md:inline">Watchlist</span>
-            </Link>
-            
-            <Link
-              to="/add"
-              className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
-                isActive("/add")
-                  ? "bg-primary text-primary-foreground"
-                  : "hover:bg-secondary"
-              }`}
-            >
-              <PlusCircle size={20} />
-              <span className="hidden md:inline">Add New</span>
-            </Link>
-            
-            <Link
-              to="/search"
-              className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
-                isActive("/search")
-                  ? "bg-primary text-primary-foreground"
-                  : "hover:bg-secondary"
-              }`}
-            >
-              <Search size={20} />
-              <span className="hidden md:inline">Search</span>
             </Link>
             
             <Link
