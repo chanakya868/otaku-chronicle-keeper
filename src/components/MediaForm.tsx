@@ -1,3 +1,4 @@
+
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -99,11 +100,22 @@ export default function MediaForm({
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    if (values.imageUrl === "") {
-      delete values.imageUrl;
+    // Create a complete object that satisfies the required type
+    const mediaItemData: Omit<MediaItem, "id" | "inWatchlist" | "watchlistStatus"> = {
+      title: values.title,
+      type: values.type,
+      genres: values.genres as Genre[],
+      description: values.description || "",
+      rating: values.rating,
+      status: values.status,
+    };
+    
+    // Only add imageUrl if it's not empty
+    if (values.imageUrl) {
+      mediaItemData.imageUrl = values.imageUrl;
     }
     
-    onSubmit(values);
+    onSubmit(mediaItemData);
     toast({
       title: "Success!",
       description: initialData ? "Item updated successfully" : "Item added to your collection",
